@@ -17,6 +17,7 @@ class Person(models.Model):
     surname = models.CharField(max_length=120, verbose_name="Surname")
     description = models.TextField(verbose_name="Description")
     address = models.ForeignKey(Address, verbose_name="Address", on_delete=models.DO_NOTHING)
+    avatar = models.ImageField(upload_to='avatars')
     groups = models.ManyToManyField('contacts_book.Group', verbose_name="Groups", blank=True)
 
     def __str__(self):

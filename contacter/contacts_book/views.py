@@ -45,7 +45,7 @@ class ModifyPerson(View):
             'description': person.description,
             'address': person.address,
             'avatar': person.avatar,
-            # 'groups': person.groups,
+            'groups': [group.id for group in person.groups.all()],
         })
 
         return render(request, template_name, {

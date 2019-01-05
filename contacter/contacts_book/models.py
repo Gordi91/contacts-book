@@ -17,7 +17,7 @@ class Person(models.Model):
     surname = models.CharField(max_length=120, verbose_name="Surname")
     description = models.TextField(verbose_name="Description")
     address = models.ForeignKey(Address, verbose_name="Address", on_delete=models.DO_NOTHING)
-    avatar = models.ImageField(upload_to='avatars')
+    avatar = models.ImageField(upload_to='images/avatars')
     groups = models.ManyToManyField('contacts_book.Group', verbose_name="Groups", blank=True)
 
     def __str__(self):
@@ -26,6 +26,7 @@ class Person(models.Model):
     class Meta:
         verbose_name = "Person"
         verbose_name_plural = "People"
+        ordering = ['surname', 'first_name']
 
 
 PHONE_TYPES = (
@@ -35,8 +36,8 @@ PHONE_TYPES = (
 )
 
 EMAIL_CHOICES = (
-    (1, 'Cellphone'),
-    (2, 'Home'),
+    (1, 'Home'),
+    (2, 'Work'),
 )
 
 

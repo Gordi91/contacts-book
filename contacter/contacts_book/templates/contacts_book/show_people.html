@@ -1,0 +1,37 @@
+{% extends "contacts_book/layout.html" %}
+{% load static %}
+
+{% block content %}
+    {% load static %}
+    <div class="container">
+      <div class="jumbotron">
+          <div class="row">
+            <div class="col-12 col-md-4">
+                <h1>Welcome in your contacts book!</h1>
+            </div>
+            <div class="col-12 col-md-8">
+                <h3>Your contacts</h3>
+                <ol class="list-group">
+                    {% for person in people %}
+                        <li class="list-group-item">
+
+                          <a href="#" class="list-group-item">{{ person }}
+                              <img src="{{ person.avatar.url }}" alt="Error" height="75px">
+                              <button type="button" class="btn btn-danger" onclick="location.href='{% url 'delete_person' person.id %}'">
+                                Delete
+                              </button>
+                              <button type="button" class="btn btn-info" onclick="location.href='{% url 'modify_person' person.id %}'">
+                                Modify
+                              </button>
+                          </a>
+
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+           </div>
+      </div>
+    </div>
+
+
+{% endblock content %}

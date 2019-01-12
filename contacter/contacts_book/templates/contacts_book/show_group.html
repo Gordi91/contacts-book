@@ -1,0 +1,40 @@
+{% extends "contacts_book/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+      <div class="jumbotron">
+          <div class="row">
+            <div class="col-12 col-md-4">
+                <h1>Welcome in your contacts book!</h1>
+            </div>
+            <div class="col-12 col-md-8">
+                <h4 style="display: inline;">Group name: {{ group }}</h4>
+                <button type="button" class="btn btn-info" onclick="location.href='{% url 'modify_group' group.id %}'">
+                    Change name
+                </button><br>
+                <h4>Members: </h4>
+                  <ul>
+                    {% for person in group.person_set.all %}
+                        <li>
+                            <a href="{% url 'show_person' person.id %}">{{ person }}</a>
+                            <button type="button" class="btn btn-info btn-sm" onclick="location.href='{% url 'delete_person_from_group' group.id person.id %}'">
+                                Delete
+                            </button><br>
+                        </li>
+                    {% endfor %}
+                  </ul>
+                <button type="button" class="btn btn-danger" onclick="location.href='{% url 'delete_group' group.id %}'">
+                    Delete group
+                </button>
+                <button type="button" class="btn btn-info" onclick="location.href='{% url 'group_members' group.id %}'">
+                    Manage members
+                </button><br>
+            </div>
+           </div>
+      </div>
+    </div>
+
+
+{% endblock content %}

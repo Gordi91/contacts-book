@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-from .database_config import DATABASE_CONFIG
+from .database_config import DATABASE_CONFIG, SECRET_KEY
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'y+4#_h=af9+)%cfeb3wffh(^ifskgp1hza8csmtf!2k9=s=#8y'
+SECRET_KEY = SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -118,12 +118,10 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'contacts_book', 'static', 'contacts_book'),
 
 ]
 
-MEDIA_URL = "/static/contacts_book/"
-MEDIA_ROOT = "/home/szymon/Documents/portfolio/contacts-book/contacter/contacts_book/static/contacts_book"
-
+MEDIA_URL = "/media/contacts_book/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'contacts_book', 'media', 'contacts_book')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

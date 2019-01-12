@@ -1,0 +1,48 @@
+{% extends "contacts_book/layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="container">
+      <div class="jumbotron">
+          <div class="row">
+            <div class="col-12 col-md-4">
+                <h1>Welcome in your contacts book!</h1>
+            </div>
+            <div class="col-12 col-md-8">
+                <h3>{{ person }}</h3>
+                <img src="{{ person.avatar.url }}" alt="Error" height="75px">
+                <button type="button" class="btn btn-danger" onclick="location.href='{% url 'delete_person' person.id %}'">
+                    Delete
+                </button>
+                <button type="button" class="btn btn-info" onclick="location.href='{% url 'modify_person' person.id %}'">
+                    Modify
+                </button><br>
+                Address: {{ person.address }} <br>
+                Member of groups: <br>
+                <ul>
+                    {% for group in person.groups.all %}
+                        <li>{{ group.name }}</li>
+                    {% endfor %}
+                </ul>
+                Phone numbers: <br>
+                <ul>
+                    {% for phone in person.phone_set.all %}
+                        <li>{{ phone.get_phone_type_display }}: {{ phone.phone_number }}</li>
+                    {% endfor %}
+                </ul>
+                Emails: <br>
+                <ul>
+                    {% for email in person.email_set.all %}
+                        <li>{{ email.get_email_type_display }}: {{ email.email_address }}</li>
+                    {% endfor %}
+                </ul>
+                Description: <br>
+                {{ person.description }}
+            </div>
+           </div>
+      </div>
+    </div>
+
+
+{% endblock content %}

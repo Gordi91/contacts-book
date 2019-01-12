@@ -3,7 +3,6 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    {% load static %}
     <div class="container">
       <div class="jumbotron">
           <div class="row">
@@ -14,8 +13,46 @@
                 <h3>Add new person</h3>
                     <form method="POST" enctype="multipart/form-data" novalidate>
                         {{ form|crispy }}
+                        {% if person.id %}
+                            {% if person.phone_set.count > 0 %}
+                                Phone numbers: <br>
+                                <ul>
+                                    {% for phone in person.phone_set.all %}
+                                        <li>
+                                            {{ phone.get_phone_type_display }}: {{ phone.phone_number }}
+                                            <button type="button" class="btn btn-info btn-sm" onclick="location.href='{% url 'delete_phone_from_person' phone.id person.id %}'">
+                                                Delete
+                                            </button><br>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {% if person.email_set.count > 0 %}
+                                Emails: <br>
+                                <ul>
+                                    {% for email in person.email_set.all %}
+                                        <li>
+                                            {{ email.get_email_type_display }}: {{ email.email_address }}
+                                            <button type="button" class="btn btn-info btn-sm" onclick="location.href='{% url 'delete_email_from_person' email.id person.id %}'">
+                                                Delete
+                                            </button><br>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            <button type="button" class="btn btn-info" onclick="location.href='{% url 'add_address' person.id %}'">
+                                Add address
+                            </button>
+                            <button type="button" class="btn btn-info" onclick="location.href='{% url 'add_phone_number' person.id %}'">
+                                Add phone number
+                            </button>
+                            <button type="button" class="btn btn-info" onclick="location.href='{% url 'add_email' person.id %}'">
+                                Add email
+                            </button>
+                        {% endif %}
                         {% csrf_token %}
                         <input type="submit" value="Submit" class="btn btn-success">
+
                     </form>
             </div>
            </div>

@@ -1,0 +1,46 @@
+{% extends "contacts_book/layout.html" %}
+{% load static %}
+
+{% block content %}
+    {% load static %}
+    <div class="container">
+      <div class="jumbotron">
+          <div class="row">
+            <div class="col-12 col-md-4">
+                <h1>Welcome in your contacts book!</h1>
+            </div>
+            <div class="col-12 col-md-8">
+                <form method="POST">
+                    {% csrf_token %}
+                    Search groups with person as member <input name='surname' type="text" placeholder="Surname">
+                    <input type="submit" value="Submit" class="btn btn-success">
+                </form>
+                {% if message %}
+                    {{ message }}
+                {% endif %}
+                {% if groups.count > 0 %}
+                    <h3>Groups</h3>
+                    <ol class="list-group">
+                        {% for group in groups %}
+                            <li class="list-group-item">
+                              <a href="{% url 'show_group' group.id %}" class="list-group-item" >{{ group }}<br>
+                                  <ul>
+                                    {% for person in group.members.all %}
+                                        <li>{{ person }}</li>
+                                    {% endfor %}
+                                  </ul>
+                              </a>
+                            </li>
+                        {% endfor %}
+                    </ol><br>
+                    <button type="button" class="btn btn-info" onclick="location.href='{% url 'new_group' %}'">
+                        New group
+                    </button>
+                {% endif %}
+            </div>
+           </div>
+      </div>
+    </div>
+
+
+{% endblock content %}

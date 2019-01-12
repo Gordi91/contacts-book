@@ -14,17 +14,14 @@
                 <ol class="list-group">
                     {% for person in people %}
                         <li class="list-group-item">
-
-                          <a href="#" class="list-group-item">{{ person }}
-                              <img src="{{ person.avatar.url }}" alt="Error" height="75px">
-                              <button type="button" class="btn btn-danger" onclick="location.href='{% url 'delete_person' person.id %}'">
-                                Delete
-                              </button>
-                              <button type="button" class="btn btn-info" onclick="location.href='{% url 'modify_person' person.id %}'">
-                                Modify
-                              </button>
-                          </a>
-
+                          <a href="{% url 'show_person' person.id %}" class="list-group-item">{{ person }}</a>
+                          <img src="{{ person.avatar.url }}" alt="Error" height="75px">
+                          <button type="button" class="btn btn-danger" onclick="location.href='{% url 'delete_person' person.id %}'">
+                            Delete
+                          </button>
+                          <button type="button" class="btn btn-info" onclick="location.href='{% url 'modify_person' person.id %}'">
+                            Modify
+                          </button>
                         </li>
                     {% endfor %}
                 </ol>
